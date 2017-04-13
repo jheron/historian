@@ -70,6 +70,23 @@ SQL
     ) | "${SQLITE3}" "${DB}";
 }
 
+cmd_export() {
+    local args=$@
+    preflight_check;
+    fail_unless_db_exists;
+
+    ( cat <<SQL
+.headers on
+.mode csv
+.output hist.csv
+SELECT id,
+       command,
+       timestamp
+  FROM history;
+.quit
+SQL
+    ) | "${SQLITE3}" "${DB}";
+}
 cmd_import() {
     local args=$@
     preflight_check;
@@ -155,6 +172,9 @@ main() {
         ;;
     count)
         cmd_count $@
+        ;;
+    export)
+        cmd_export $@
         ;;
     import)
         cmd_import $@
