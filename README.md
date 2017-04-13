@@ -77,6 +77,10 @@ View log:
     1018
         rm -rf .git
 
+Export commands:
+
+    $ hist export # writes hist.csv to current directory
+
 ### Pitfalls
 
 Live like your db file could be corrupted at any time.
